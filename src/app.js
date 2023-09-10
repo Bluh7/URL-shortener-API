@@ -3,6 +3,8 @@ import cors from "cors"
 import router from "./router/router.js"
 import logger from "./utils/logger.js"
 import sequelize from "./config/database.js"
+import Code from "./models/codeModel.js"
+import Url from "./models/urlModel.js"
 import * as url from "url"
 
 const app = express()
@@ -12,6 +14,14 @@ try {
   //logger.info(`Connected to database: ${sequelize.getDatabaseName()}`)
 } catch (err) {
   logger.error(`Unable to connect to the database: ${err}`)
+  process.exit(1)
+}
+
+try {
+  await Url.sync({ alter: true })
+  await Code.sync({ alter: true })
+} catch (err) {
+  logger.error(`Unable to sync database: ${err}`)
   process.exit(1)
 }
 
