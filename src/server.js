@@ -1,6 +1,6 @@
 import app from "./app.js"
 import config from "./config/dotenv.js"
-import logger from "./config/logger.js"
+import logger from "./utils/logger.js"
 import sequelize from "./config/database.js"
 
 const { PORT, NODE_ENV } = config
