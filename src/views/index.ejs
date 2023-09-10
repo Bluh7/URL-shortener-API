@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <%- include('partials/header') %>
+    <script src="/js/shortenForm.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('partials/buttons') %>
+      <div class="form">
+        <form id="shorten-form">
+          <h1>Paste the URL you want to be shortened</h1>
+          <input
+            type="text"
+            name="url"
+            id="url"
+            placeholder="Enter the URL here"
+          />
+          <p>
+            This website is a free and open source tool to shorten any URLs.
+          </p>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

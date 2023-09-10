@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <%- include('partials/header') %>
+    <script src="/js/redirect.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <%- include('partials/buttons') %>
+      <h1 class="redirect-message" id="redirect-message">
+        You are being redirected to in <span id="countdown">5</span> seconds...
+      </h1>
+        <p class="redirect-url" id="redirect-url">
+          <%= url %>
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
