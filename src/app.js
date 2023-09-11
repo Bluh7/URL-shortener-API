@@ -18,8 +18,10 @@ try {
 }
 
 try {
-  await Url.sync({ alter: true })
-  await Code.sync({ alter: true })
+  // Jest will throw an error if the tables already exist
+  // and we try to sync them again with alter: true or force: true
+  await Url.sync()
+  await Code.sync()
 } catch (err) {
   logger.error(`Unable to sync database: ${err}`)
   process.exit(1)
