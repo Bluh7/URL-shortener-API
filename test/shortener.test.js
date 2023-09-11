@@ -44,14 +44,14 @@ test("GET /api/v1/url/:code should return 200", async () => {
 })
 
 it("Should return the original URL", async () => {
-  const url = "https://www.google.com"
+  const payloadUrl = "https://www.google.com"
   try {
     const postResponse = await request.post("/api/v1/url/shorten").send({
-      url,
+      url: payloadUrl,
     })
     const shortUrlCode = postResponse.body.shortUrlCode
     const getResponse = await request.get(`/api/v1/url/shorten/${shortUrlCode}`)
-    return expect(getResponse.body.url).toBe(url)
+    return expect(getResponse.body.url).toBe(payloadUrl)
   } catch (err) {
     logger.error(err)
     console.log(err)
