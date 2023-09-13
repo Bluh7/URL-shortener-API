@@ -1,10 +1,27 @@
 import winston from "winston"
 import config from "../config/dotenv.js"
+import fs from "fs"
 import * as url from "url"
 
 const { NODE_ENV } = config
 
 const __dirname = url.fileURLToPath(new URL("../..", import.meta.url))
+
+// create folder and files if they don't exist in production
+if (NODE_ENV === "production") {
+  const logsDir = `${__dirname}logs`
+  if (!fs.existsSync(logsDir)) {
+    fs.mkdirSync(logsDir)
+  }
+  const errorLog = `${__dirname}logs/error.log`
+  if (!fs.existsSync(errorLog)) {
+    fs.writeFileSync(errorLog, "")
+  }
+  const combinedLog = `${__dirname}logs/combined.log`
+  if (!fs.existsSync(combinedLog)) {
+    fs.writeFileSync(combinedLog, "")
+  }
+}
 
 const logger = winston.createLogger({
   level: "info",
