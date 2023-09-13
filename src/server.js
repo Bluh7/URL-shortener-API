@@ -28,23 +28,28 @@ const appServer = app
     }
   })
 
-if (NODE_ENV !== "production") {
-  // SIGINT is the signal sent to the process when you press CTRL+C
-  // SIGTERM is a generic signal used to cause program termination
-  process.on("SIGINT" || "SIGTERM", async signal => {
-    logger.info(`${signal} signal received: Stopping dev server...`)
-    logger.info("Closing database connection...")
+// SIGINT is the signal sent to the process when you press CTRL+C
+// SIGTERM is a generic signal used to cause program termination
+process.on("SIGINT" || "SIGTERM", async signal => {
+  if (NODE_ENV === "production" && signal === "SIGINT") {
+    logger.warn(
+      "Received SIGINT signal in production environment, doing nothing."
+    )
+    return
+  }
 
-    try {
-      await sequelize.close()
-      logger.info("Database connection closed.")
-    } catch (err) {
-      logger.error(`Unable to close database connection: ${err}`)
-    }
+  logger.info(`${signal} signal received: Stopping ${NODE_ENV} server...`)
+  logger.info("Closing database connection...")
 
-    appServer.close(() => {
-      logger.info("Dev server stopped.")
-      process.exit(0)
-    })
+  try {
+    await sequelize.close()
+    logger.info("Database connection closed.")
+  } catch (err) {
+    logger.error(`Unable to close database connection: ${err}`)
+  }
+
+  appServer.close(() => {
+    logger.info(`${NODE_ENV} server stopped.`)
+    process.exit(0)
   })
-}
+})

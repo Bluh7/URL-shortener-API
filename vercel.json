@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    { "handle": "filesystem" },
+    {
+      "src": "/.*",
+      "dest": "src/server.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "api": {
+      "src": "src/server.js",
+      "routes": [
+        {
+          "src": "/api/v1/url/shorten",
+          "methods": ["POST"]
+        },
+        {
+          "src": "/api/v1/url/shorten/:code",
+          "methods": ["GET"]
+        }
+      ]
+    }
+  }
+}
