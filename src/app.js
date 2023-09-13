@@ -35,14 +35,13 @@ const corsOptions = {
 
 // __dirname is not available by default when using ES modules
 const __dirname = url.fileURLToPath(new URL("..", import.meta.url))
-const path = await import("path")
 
 app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(`${__dirname}public`))
 app.set("view engine", "ejs")
-app.set("views", path.join(`${__dirname}src`, "views"))
+app.set("views", "./src/views")
 app.use(router)
 
 export default app
