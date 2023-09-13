@@ -7,28 +7,9 @@
     }
   ],
   "routes": [
-    { "handle": "filesystem" },
     {
-      "src": "/.*",
+      "src": "/(.*)",
       "dest": "src/server.js"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  },
-  "functions": {
-    "api": {
-      "src": "src/server.js",
-      "routes": [
-        {
-          "src": "/api/v1/url/shorten",
-          "methods": ["POST"]
-        },
-        {
-          "src": "/api/v1/url/shorten/:code",
-          "methods": ["GET"]
-        }
-      ]
-    }
-  }
+  ]
 }
