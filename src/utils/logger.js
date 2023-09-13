@@ -1,7 +1,20 @@
 import winston from "winston"
 import config from "../config/dotenv.js"
+import fs from "fs"
 
 const { NODE_ENV } = config
+
+if (NODE_ENV === "production" && !fs.existsSync("temp")) {
+  fs.mkdirSync("temp")
+
+  if (!fs.existsSync("temp/error.log")) {
+    fs.writeFileSync("temp/error.log", "")
+  }
+
+  if (!fs.existsSync("temp/combined.log")) {
+    fs.writeFileSync("temp/combined.log", "")
+  }
+}
 
 const logger = winston.createLogger({
   level: "info",
