@@ -14,15 +14,12 @@ const logger = winston.createLogger({
     // Error level logs or less are written to error.log
     // Info level logs or less are written to combined.log
     new winston.transports.File({
-      filename:
-        NODE_ENV === "production" ? "temp/logs/error.log" : "logs/error.log",
+      filename: NODE_ENV === "production" ? "temp/error.log" : "logs/error.log",
       level: "error",
     }),
     new winston.transports.File({
       filename:
-        NODE_ENV === "production"
-          ? "temp/logs/combined.log"
-          : "logs/combined.log",
+        NODE_ENV === "production" ? "temp/combined.log" : "logs/combined.log",
     }),
   ],
 })
