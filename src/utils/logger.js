@@ -1,20 +1,7 @@
 import winston from "winston"
 import config from "../config/dotenv.js"
-import fs from "fs"
 
 const { NODE_ENV } = config
-
-if (NODE_ENV === "production" && !fs.existsSync("temp")) {
-  fs.mkdirSync("temp")
-
-  if (!fs.existsSync("temp/error.log")) {
-    fs.writeFileSync("temp/error.log", "")
-  }
-
-  if (!fs.existsSync("temp/combined.log")) {
-    fs.writeFileSync("temp/combined.log", "")
-  }
-}
 
 const logger = winston.createLogger({
   level: "info",
@@ -26,13 +13,24 @@ const logger = winston.createLogger({
   transports: [
     // Error level logs or less are written to error.log
     // Info level logs or less are written to combined.log
+
+    // This is for server logs
+
+    /*
     new winston.transports.File({
-      filename: NODE_ENV === "production" ? "temp/error.log" : "logs/error.log",
+      filename: "logs/error.log",
       level: "error",
     }),
-    new winston.transports.File({
-      filename:
-        NODE_ENV === "production" ? "temp/combined.log" : "logs/combined.log",
+    new winston.transports.File({ filename: "logs/combined.log" }),
+    */
+
+    // Serverless logs are written to console so we will use it cuz we're using vercel
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.printf(
+          info => `${info.timestamp} | ${info.level}: ${info.message}`
+        )
+      ),
     }),
   ],
 })
