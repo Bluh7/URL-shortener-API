@@ -1,12 +1,9 @@
 {
   "name": "url-shortener",
   "version": "1.0.0",
-  "description": "",
+  "description": "A URL shortener API built with Node.js, Express, and PostgreSQL.",
   "type": "module",
   "main": "src/server.js",
-  "engines": {
-    "node": "v18.12.1"
-  },
   "scripts": {
     "start": "node src/server.js",
     "test": "node --no-warnings --experimental-vm-modules node_modules/jest/bin/jest.js"
