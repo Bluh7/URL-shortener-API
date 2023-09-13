@@ -1,7 +1,7 @@
 import winston from "winston"
-import config from "../config/dotenv.js"
+//import config from "../config/dotenv.js"
 
-const { NODE_ENV } = config
+//const { NODE_ENV } = config
 
 const logger = winston.createLogger({
   level: "info",
@@ -27,6 +27,7 @@ const logger = winston.createLogger({
     // Serverless logs are written to console so we will use it cuz we're using vercel
     new winston.transports.Console({
       format: winston.format.combine(
+        winston.format.colorize({ all: true }),
         winston.format.printf(
           info => `${info.timestamp} | ${info.level}: ${info.message}`
         )
@@ -35,8 +36,9 @@ const logger = winston.createLogger({
   ],
 })
 
-// If we're not in production then log to the `console` with the format:
+// If we're not in production and not using serverless then log to the `console` with the format:
 // timestamp | level: message
+/*
 if (NODE_ENV !== "production") {
   logger.add(
     new winston.transports.Console({
@@ -50,5 +52,5 @@ if (NODE_ENV !== "production") {
     })
   )
 }
-
+*/
 export default logger

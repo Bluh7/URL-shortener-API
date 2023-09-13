@@ -15,7 +15,7 @@ class RedirectController {
       const urlObject = await ShortnerService.getUrlObject(code)
       const url = urlObject["url.url"]
 
-      return res.status(200).render("redirect", { url })
+      return res.status(200).render("redirect.ejs", { url })
     } catch (err) {
       if (err.message === "Url not found") {
         return res.status(404).redirect("/")
